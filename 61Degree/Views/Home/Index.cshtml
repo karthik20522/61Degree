@@ -1,0 +1,77 @@
+﻿@inherits System.Web.Mvc.WebViewPage<List<_61Degree.Models.NewsView>>
+@using _61Degree
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>61Degree - News at 61st minute</title>
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+    <link href="@Url.Content("~/Content/Css/Site.css")" rel="stylesheet" type="text/css" />
+    <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+        google.load("jquery", "1.7.1");
+    </script>    
+</head>
+<body>
+    <div id="rainbow"></div>
+    <!-- Main Content -->
+    <div id="main">
+        <!-- logo -->
+        <div class="first-col col2">
+            <a href="/" title="home"><img src="@Url.Content("/Content/images/61degree_logo_word.png")" alt="61degree home" /></a>
+            <h5>news at 61st minute</h5>
+            <div class="taphere">
+                double tap here..<br />
+            </div>
+        </div>
+        <div class="col2 first-col">
+		    <div id="submenu" class="secondary-links">
+                <h3>Category</h3>
+                <ul id="cat">
+                    <li><a title="News" class="news marginLR" href="#" id="News">#News</a></li>
+                    <li><a title="Science" class="science marginLR" href="#">#Science and Technology</a></li>
+                    <li><a title="Business" class="business marginLR" href="#">#Business</a></li>
+                    <li><a title="Sports" class="sports marginLR" href="#">#Sports</a></li>
+                    <li><a title="Entertainment" class="entertainment marginLR" href="#">#Entertainment</a></li>
+                    <li><a title="Politics" href="#" class="politics marginLR">#Politics</a></li>
+                    <li><a title="Life" class="life marginLR" href="#">#Life</a></li>
+                    <li><a title="Opinion" class="opinion marginLR" href="#">#Opinion</a></li>
+                    <li><a title="Others" class="others marginLR" href="#">#Others</a></li>
+                </ul>
+            </div>
+        </div>
+        @foreach (var groupedItem in Model)
+        {
+            <div class="groupKey">@groupedItem.Key</div>
+            foreach (var item in groupedItem.Values)
+            {
+                <div id="@item._id" data-image="@(item.images != null && item.images.Count > 0 ? item.images.First().src : "")" 
+                    data-title="@Utils.ToUpper(item.title)"
+                    data-time="@item.time.ToString()"
+                    data-publisher ="@Utils.ToUpper(item.publisher)"
+                    data-url="@item.url"
+                    class="block @Utils.GetColor(Utils.RemoveSpecialCharacters(item.category.ToLower().Trim()))">
+                </div>
+            }
+        }
+    </div>
+    <div style="clear:both;"></div>
+
+    <!-- footer -->
+    <div id="footer">
+        <p>61.d.e.g.r.e.e /                 
+            <a title="Contact" target="_blank" href="http://github.com/karthik20522">Contact</a> / 
+            <a title="Source code" target="_blank" href="http://github.com/karthik20522/61Degree">Source</a></p>
+    </div>
+    <link href="@Url.Content("~/Content/Css/tipped.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/Js/tipped.js")"></script>
+    <script src="@Url.Content("~/Content/Js/jQuery.doubleTap.js")"></script>
+    <script src="@Url.Content("~/Content/Js/61degree.js")"></script>
+</body>
+</html>
